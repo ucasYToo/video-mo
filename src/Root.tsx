@@ -1,17 +1,17 @@
 import "./index.css";
 import { Composition } from "remotion";
-import { MyComposition } from "./Composition";
+import { ShortFilm } from "./compositions/ShortFilm/ShortFilm";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="MyComp"
-        component={MyComposition}
-        durationInFrames={60}
+        id="ShortFilm"
+        component={ShortFilm}
+        durationInFrames={1380}
         fps={30}
-        width={1280}
-        height={720}
+        width={1080}
+        height={1920}
       />
     </>
   );

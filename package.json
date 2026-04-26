@@ -22,8 +22,9 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "dev": "remotion studio",
-    "build": "remotion bundle",
+    "dev": "remotion studio --browser-executable=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"",
+    "build": "remotion bundle --browser-executable=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"",
+    "render": "remotion render --browser-executable=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },
