@@ -1,7 +1,7 @@
 {
   "fps": 30,
-  "totalDurationMs": 43256.2358276644,
-  "totalFrames": 1298,
+  "totalDurationMs": 41556.2358276644,
+  "totalFrames": 1247,
   "lines": [
     {
       "text": "我是一个猎妖人。",
@@ -10,7 +10,7 @@
       "endMs": 817.1882086167801,
       "startFrame": 0,
       "endFrame": 25,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "祖传的手艺。",
@@ -19,7 +19,7 @@
       "endMs": 1771.836734693878,
       "startFrame": 34,
       "endFrame": 53,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "到我这一代快断顿了——",
@@ -28,7 +28,7 @@
       "endMs": 3051.5646258503407,
       "startFrame": 62,
       "endFrame": 92,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "妖精们学会了用手机。",
@@ -37,7 +37,7 @@
       "endMs": 4261.632653061226,
       "startFrame": 101,
       "endFrame": 128,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "我没业务干，每天搓手机。",
@@ -46,7 +46,7 @@
       "endMs": 5878.049886621317,
       "startFrame": 137,
       "endFrame": 176,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "顺道谈了个网恋。",
@@ -55,7 +55,7 @@
       "endMs": 6972.018140589571,
       "startFrame": 185,
       "endFrame": 209,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "网恋对象叫小鹿，聊了三个月。",
@@ -64,7 +64,8 @@
       "endMs": 8994.784580498868,
       "startFrame": 218,
       "endFrame": 270,
-      "source": "M"
+      "speaker": "M",
+      "beat": "romance"
     },
     {
       "text": "我喜欢的很。",
@@ -73,7 +74,7 @@
       "endMs": 9879.773242630388,
       "startFrame": 279,
       "endFrame": 296,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "「你们人为什么要上班？」",
@@ -82,7 +83,7 @@
       "endMs": 11043.40136054422,
       "startFrame": 305,
       "endFrame": 331,
-      "source": "F"
+      "speaker": "F"
     },
     {
       "text": "我说为了吃饭。",
@@ -91,7 +92,7 @@
       "endMs": 11998.049886621317,
       "startFrame": 340,
       "endFrame": 360,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "「我不上班也有饭吃。」",
@@ -100,7 +101,7 @@
       "endMs": 13161.678004535148,
       "startFrame": 369,
       "endFrame": 395,
-      "source": "F"
+      "speaker": "F"
     },
     {
       "text": "直到昨晚，",
@@ -109,7 +110,7 @@
       "endMs": 14023.44671201814,
       "startFrame": 404,
       "endFrame": 421,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "城郊废弃化工厂，",
@@ -118,7 +119,7 @@
       "endMs": 15303.1746031746,
       "startFrame": 430,
       "endFrame": 459,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "追到了那只逃了三天的妖精。",
@@ -127,7 +128,7 @@
       "endMs": 16896.371882086165,
       "startFrame": 468,
       "endFrame": 507,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "她蹲在铁架子上，月光一照——",
@@ -136,7 +137,7 @@
       "endMs": 18988.79818594104,
       "startFrame": 516,
       "endFrame": 570,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "和我手机屏保长得一毛一样。",
@@ -145,7 +146,7 @@
       "endMs": 20373.01587301587,
       "startFrame": 579,
       "endFrame": 611,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "是小鹿。",
@@ -154,7 +155,10 @@
       "endMs": 21107.074829931968,
       "startFrame": 620,
       "endFrame": 633,
-      "source": "M"
+      "speaker": "M",
+      "emphasisColor": "#4ecdc4",
+      "shakeIntensity": 1.5,
+      "beat": "discovery"
     },
     {
       "text": "她看了看我的银弩。",
@@ -163,7 +167,7 @@
       "endMs": 23854.603174603166,
       "startFrame": 693,
       "endFrame": 716,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "「你和我在一起这么久，就是想杀我？」",
@@ -172,7 +176,7 @@
       "endMs": 25749.65986394557,
       "startFrame": 725,
       "endFrame": 772,
-      "source": "F"
+      "speaker": "F"
     },
     {
       "text": "喜欢你是真的，但猎妖是职业操守。",
@@ -181,7 +185,7 @@
       "endMs": 27888.5260770975,
       "startFrame": 781,
       "endFrame": 837,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "那你不爱我了吗？",
@@ -190,7 +194,9 @@
       "endMs": 28843.174603174597,
       "startFrame": 846,
       "endFrame": 865,
-      "source": "F"
+      "speaker": "F",
+      "emphasisColor": "#ff6b6b",
+      "beat": "confrontation"
     },
     {
       "text": "我放下弩。",
@@ -199,7 +205,8 @@
       "endMs": 31381.723356009064,
       "startFrame": 925,
       "endFrame": 941,
-      "source": "M"
+      "speaker": "M",
+      "beat": "resolution"
     },
     {
       "text": "「要不你委屈一下，别当妖了？」",
@@ -208,7 +215,7 @@
       "endMs": 33114.24036281179,
       "startFrame": 950,
       "endFrame": 993,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "「可以。那你养我。」",
@@ -217,7 +224,7 @@
       "endMs": 34208.208616780044,
       "startFrame": 1002,
       "endFrame": 1026,
-      "source": "F"
+      "speaker": "F"
     },
     {
       "text": "我说行，那我也不猎妖了，我去上班给你挣饭钱。",
@@ -226,7 +233,7 @@
       "endMs": 37345.532879818595,
       "startFrame": 1035,
       "endFrame": 1120,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "后来她告诉我，她早就知道我是猎妖人。",
@@ -235,7 +242,8 @@
       "endMs": 39461.179138322,
       "startFrame": 1129,
       "endFrame": 1184,
-      "source": "M"
+      "speaker": "M",
+      "beat": "epilogue"
     },
     {
       "text": "那会儿，",
@@ -244,7 +252,7 @@
       "endMs": 40195.2380952381,
       "startFrame": 1193,
       "endFrame": 1206,
-      "source": "M"
+      "speaker": "M"
     },
     {
       "text": "我真觉得自己坏透了。",
@@ -253,7 +261,9 @@
       "endMs": 41556.2358276644,
       "startFrame": 1215,
       "endFrame": 1247,
-      "source": "M"
+      "speaker": "M",
+      "emphasisColor": "#bdc3c7",
+      "beat": "epilogue"
     }
   ]
 }

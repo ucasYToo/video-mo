@@ -1,30 +1,46 @@
 import "./index.css";
+import React from "react";
 import { Composition, Still } from "remotion";
-import { ShortFilm } from "./compositions/ShortFilm/ShortFilm";
-import { ShortFilmCover } from "./compositions/ShortFilm/ShortFilmCover";
-import timelineRaw from "../public/voiceover/ShortFilm/timeline.json";
+import { ShortFilmComposition } from "./compositions/ShortFilmComposition";
+import { StoryCover } from "./components/StoryCover";
+import type { StoryConfig } from "./types/story";
+import type { TimelineData } from "./types/timeline";
+import shortFilmStory from "./stories/ShortFilm/story.json";
+import shortFilmTimeline from "../public/voiceover/ShortFilm/timeline.json";
 
-const FPS = 30;
-const TITLE_DURATION = 60;
-const BUFFER_FRAMES = FPS * 3;
+const STORIES: Array<{ config: StoryConfig; timeline: TimelineData }> = [
+  { config: shortFilmStory as StoryConfig, timeline: shortFilmTimeline as TimelineData },
+];
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      <Still
-        id="ShortFilm-Cover"
-        component={ShortFilmCover}
-        width={1080}
-        height={1920}
-      />
-      <Composition
-        id="ShortFilm"
-        component={ShortFilm}
-        durationInFrames={TITLE_DURATION + timelineRaw.totalFrames + BUFFER_FRAMES}
-        fps={FPS}
-        width={1080}
-        height={1920}
-      />
+      {STORIES.map(({ config, timeline }) => {
+        const { storyId, fps, timing } = config;
+        return (
+          <React.Fragment key={storyId}>
+            <Still
+              id={`${storyId}-Cover`}
+              component={StoryCover}
+              width={1080}
+              height={1920}
+              defaultProps={{
+                title: config.title,
+                bgColor: config.style.defaultBgColor,
+              }}
+            />
+            <Composition
+              id={storyId}
+              component={ShortFilmComposition}
+              durationInFrames={timing.titleDuration + timeline.totalFrames + timing.bufferFrames}
+              fps={fps}
+              width={1080}
+              height={1920}
+              defaultProps={{ config, timeline }}
+            />
+          </React.Fragment>
+        );
+      })}
     </>
   );
 };

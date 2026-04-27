@@ -1,0 +1,72 @@
+{
+  "storyId": "ShortFilm",
+  "fps": 30,
+  "title": {
+    "lines": ["猎妖人", "职业道德问题"],
+    "image": "calligraphy.png"
+  },
+  "timing": {
+    "titleDuration": 60,
+    "fadeDuration": 4,
+    "bufferFrames": 90,
+    "typewriterSpeed": 1,
+    "interLineGapMs": 300,
+    "emphasisGapMs": 2000
+  },
+  "style": {
+    "lineHeights": {
+      "normal": 78,
+      "dialog": 65,
+      "emphasis": 157
+    },
+    "defaultBgColor": "#0a0a0a",
+    "variantClasses": {
+      "normal": "text-[48px] font-normal text-gray-200 font-serif",
+      "dialog": "text-[40px] font-normal text-gray-300 font-serif tracking-wide",
+      "emphasis": "text-[72px] font-bold font-serif tracking-wider mt-4 mb-6"
+    }
+  },
+  "speakers": [
+    { "id": "M", "name": "male", "voiceId": "Chinese (Mandarin)_Unrestrained_Young_Man", "speed": 1.8 },
+    { "id": "F", "name": "female", "voiceId": "female-shaonv", "speed": 1.8 }
+  ],
+  "lines": [
+    { "speaker": "M", "text": "我是一个猎妖人。", "variant": "normal" },
+    { "speaker": "M", "text": "祖传的手艺。", "variant": "normal" },
+    { "speaker": "M", "text": "到我这一代快断顿了——", "variant": "normal" },
+    { "speaker": "M", "text": "妖精们学会了用手机。", "variant": "normal" },
+    { "speaker": "M", "text": "我没业务干，每天搓手机。", "variant": "normal" },
+    { "speaker": "M", "text": "顺道谈了个网恋。", "variant": "normal" },
+    { "speaker": "M", "text": "网恋对象叫小鹿，聊了三个月。", "variant": "normal", "beat": "romance" },
+    { "speaker": "M", "text": "我喜欢的很。", "variant": "normal" },
+    { "speaker": "F", "text": "「你们人为什么要上班？」", "variant": "dialog" },
+    { "speaker": "M", "text": "我说为了吃饭。", "variant": "normal" },
+    { "speaker": "F", "text": "「我不上班也有饭吃。」", "variant": "dialog" },
+    { "speaker": "M", "text": "直到昨晚，", "variant": "normal" },
+    { "speaker": "M", "text": "城郊废弃化工厂，", "variant": "normal" },
+    { "speaker": "M", "text": "追到了那只逃了三天的妖精。", "variant": "normal" },
+    { "speaker": "M", "text": "她蹲在铁架子上，月光一照——", "variant": "normal" },
+    { "speaker": "M", "text": "和我手机屏保长得一毛一样。", "variant": "normal" },
+    { "speaker": "M", "text": "是小鹿。", "variant": "emphasis", "emphasisColor": "#4ecdc4", "shakeIntensity": 1.5, "beat": "discovery" },
+    { "speaker": "M", "text": "她看了看我的银弩。", "variant": "normal" },
+    { "speaker": "F", "text": "「你和我在一起这么久，就是想杀我？」", "variant": "dialog" },
+    { "speaker": "M", "text": "喜欢你是真的，但猎妖是职业操守。", "variant": "normal" },
+    { "speaker": "F", "text": "那你不爱我了吗？", "variant": "emphasis", "emphasisColor": "#ff6b6b", "beat": "confrontation" },
+    { "speaker": "M", "text": "我放下弩。", "variant": "normal", "beat": "resolution" },
+    { "speaker": "M", "text": "「要不你委屈一下，别当妖了？」", "variant": "dialog" },
+    { "speaker": "F", "text": "「可以。那你养我。」", "variant": "dialog" },
+    { "speaker": "M", "text": "我说行，那我也不猎妖了，我去上班给你挣饭钱。", "variant": "normal" },
+    { "speaker": "M", "text": "后来她告诉我，她早就知道我是猎妖人。", "variant": "normal", "beat": "epilogue" },
+    { "speaker": "M", "text": "那会儿，", "variant": "normal" },
+    { "speaker": "M", "text": "我真觉得自己坏透了。", "variant": "emphasis", "emphasisColor": "#bdc3c7", "beat": "epilogue" }
+  ],
+  "beats": [
+    { "tag": "romance", "bgColor": "#1a1410", "heartbeat": false },
+    { "tag": "discovery", "bgColor": "#0a1a18", "heartbeat": true },
+    { "tag": "confrontation", "bgColor": "#1a0808", "heartbeat": true },
+    { "tag": "resolution", "bgColor": "#1a1512", "heartbeat": false },
+    { "tag": "epilogue", "bgColor": "#0a0a0f", "heartbeat": false }
+  ],
+  "bgColorEnd": "#020202",
+  "heartbeatStartBeat": "romance"
+}

@@ -1,95 +1,177 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync, unlinkSync, readdirSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import type { StoryConfig, StorySpeaker } from "../src/types/story";
 
-const FPS = 30;
-const MANIFEST_PATH = "public/voiceover/ShortFilm/manifest.json";
-const AUDIO_DIR = "public/voiceover/ShortFilm";
-const OUTPUT_PATH = "public/voiceover/ShortFilm/voiceover.mp3";
+function main() {
+  const storyPath = process.argv[2];
+  if (!storyPath) {
+    console.error("Usage: npx tsx scripts/merge-voiceover.ts <story.json>");
+    process.exit(1);
+  }
 
-// Line startFrames from ShortFilm.tsx LINES array
-const LINE_START_FRAMES = [
-  60, 80, 100, 125, 140, 180, 200, 250,
-  260, 310, 335, 350, 375, 395, 410, 470, 550,
-  620, 645, 705, 740, 890, 920, 1010, 1055,
-  1130, 1220, 1250,
-];
+  const story: StoryConfig = JSON.parse(readFileSync(storyPath, "utf-8"));
 
-interface ManifestScene {
-  id: string;
-  file: string;
-  durationMs: number;
-}
+  const FPS = story.fps;
+  const INTER_LINE_GAP_MS = story.timing.interLineGapMs;
+  const EMPHASIS_GAP_MS = story.timing.emphasisGapMs;
+  const AUDIO_DIR = `public/voiceover/${story.storyId}-wip`;
+  const OUTPUT_DIR = `public/voiceover/${story.storyId}`;
+  const OUTPUT_AUDIO = `${OUTPUT_DIR}/voiceover.mp3`;
+  const OUTPUT_TIMELINE = `${OUTPUT_DIR}/timeline.json`;
 
-const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf-8")) as {
-  scenes: ManifestScene[];
-};
+  // Build speaker lookup
+  const speakerMap = new Map<string, StorySpeaker>();
+  for (const s of story.speakers) {
+    speakerMap.set(s.id, s);
+  }
 
-if (manifest.scenes.length !== LINE_START_FRAMES.length) {
-  console.error(
-    `Mismatch: manifest has ${manifest.scenes.length} scenes, but LINES has ${LINE_START_FRAMES.length} entries`,
-  );
-  process.exit(1);
-}
+  // Load subtitle files per speaker
+  interface SubtitleEntry {
+    text: string;
+    time_begin: number;
+    time_end: number;
+  }
 
-// Build padded clips: for each scene, prepend silence so it starts at the right time
-// Then overlay all clips on a single long silent track
-const totalDurationMs = Math.round(
-  (LINE_START_FRAMES[LINE_START_FRAMES.length - 1] / FPS) * 1000
-    + manifest.scenes[manifest.scenes.length - 1].durationMs
-    + 2000,
-);
+  const subtitles = new Map<string, SubtitleEntry[]>();
+  for (const speaker of story.speakers) {
+    const subPath = join(AUDIO_DIR, `${speaker.name}.subtitle.json`);
+    try {
+      subtitles.set(speaker.id, JSON.parse(readFileSync(subPath, "utf-8")));
+    } catch {
+      console.error(`Missing subtitle file: ${subPath}`);
+      process.exit(1);
+    }
+  }
 
-const tmpDir = join(AUDIO_DIR, "_tmp");
-mkdirSync(tmpDir, { recursive: true });
+  // Compute per-speaker line indices by iterating story lines in order
+  const speakerLineIndex = new Map<string, number>();
+  for (const speaker of story.speakers) {
+    speakerLineIndex.set(speaker.id, 0);
+  }
 
-console.log(`Creating base silence track (${totalDurationMs}ms)...`);
+  // Extract and merge audio clips
+  const tmpDir = join(AUDIO_DIR, "_tmp");
+  mkdirSync(tmpDir, { recursive: true });
 
-// Create a long silent base track
-execSync(
-  `ffmpeg -y -f lavfi -i anullsrc=r=32000:cl=mono -t ${totalDurationMs / 1000} -b:a 128k "${join(tmpDir, "base.mp3")}"`,
-  { stdio: "pipe" },
-);
+  console.log(`Processing ${story.lines.length} lines...`);
 
-// For each scene, create a padded clip with silence before it
-const filterInputs = [`[0:a]`]; // base silence
-const filterChain: string[] = [];
+  const timeline: Array<{
+    text: string;
+    variant: string;
+    startMs: number;
+    endMs: number;
+    startFrame: number;
+    endFrame: number;
+    speaker: string;
+    emphasisColor?: string;
+    shakeIntensity?: number;
+    beat?: string;
+  }> = [];
 
-for (let i = 0; i < manifest.scenes.length; i++) {
-  const scene = manifest.scenes[i];
-  const audioPath = join("public", scene.file);
-  const delayMs = Math.round((LINE_START_FRAMES[i] / FPS) * 1000);
-  const paddedPath = join(tmpDir, `delayed-${String(i).padStart(2, "0")}.mp3`);
+  let globalOffsetMs = 0;
+  const clipPaths: string[] = [];
+  const absClipPaths: string[] = [];
 
-  // Create a clip with silence prepended
+  for (let i = 0; i < story.lines.length; i++) {
+    const line = story.lines[i];
+    const subs = subtitles.get(line.speaker);
+    if (!subs) {
+      console.error(`No subtitles for speaker: ${line.speaker}`);
+      process.exit(1);
+    }
+
+    const lineIdx = speakerLineIndex.get(line.speaker)!;
+    const sub = subs[lineIdx];
+
+    if (!sub) {
+      console.error(`Missing subtitle: ${line.speaker}[${lineIdx}] for line "${line.text}"`);
+      process.exit(1);
+    }
+
+    speakerLineIndex.set(line.speaker, lineIdx + 1);
+
+    const speaker = speakerMap.get(line.speaker);
+    if (!speaker) {
+      console.error(`Unknown speaker: ${line.speaker}`);
+      process.exit(1);
+    }
+
+    const audioPath = join(AUDIO_DIR, `${speaker.name}.mp3`);
+    const clipPath = join(tmpDir, `clip-${String(i).padStart(2, "0")}.mp3`);
+    const startSec = sub.time_begin / 1000;
+    const durationSec = (sub.time_end - sub.time_begin) / 1000;
+    const isLast = i === story.lines.length - 1;
+
+    const rawClipPath = join(tmpDir, `raw-${String(i).padStart(2, "0")}.mp3`);
+    execSync(
+      `ffmpeg -y -i "${audioPath}" -ss ${startSec} -t ${durationSec} -b:a 128k -ar 32000 "${rawClipPath}"`,
+      { stdio: "pipe" },
+    );
+
+    const padMs = isLast ? 0 : (line.pauseAfterMs ?? (line.variant === "emphasis" ? EMPHASIS_GAP_MS : INTER_LINE_GAP_MS));
+    if (padMs > 0) {
+      execSync(
+        `ffmpeg -y -i "${rawClipPath}" -filter_complex "apad=whole_dur=${durationSec + padMs / 1000}" -b:a 128k -ar 32000 "${clipPath}"`,
+        { stdio: "pipe" },
+      );
+    } else {
+      execSync(`cp "${rawClipPath}" "${clipPath}"`);
+    }
+
+    clipPaths.push(clipPath);
+    absClipPaths.push(join(process.cwd(), clipPath));
+
+    const startFrame = Math.round((globalOffsetMs / 1000) * FPS);
+    const endFrame = Math.round(((globalOffsetMs + sub.time_end - sub.time_begin) / 1000) * FPS);
+
+    const entry: typeof timeline[0] = {
+      text: line.text,
+      variant: line.variant,
+      startMs: globalOffsetMs,
+      endMs: globalOffsetMs + (sub.time_end - sub.time_begin),
+      startFrame,
+      endFrame,
+      speaker: line.speaker,
+    };
+
+    if (line.emphasisColor) entry.emphasisColor = line.emphasisColor;
+    if (line.shakeIntensity !== undefined) entry.shakeIntensity = line.shakeIntensity;
+    if (line.beat) entry.beat = line.beat;
+
+    timeline.push(entry);
+
+    const gap = line.pauseAfterMs ?? (line.variant === "emphasis" ? EMPHASIS_GAP_MS : INTER_LINE_GAP_MS);
+    globalOffsetMs += sub.time_end - sub.time_begin + (isLast ? 0 : gap);
+  }
+
+  // Concatenate all clips
+  console.log("Concatenating clips...");
+
+  const concatListPath = join(tmpDir, "concat.txt");
+  writeFileSync(concatListPath, absClipPaths.map((p) => `file '${p}'`).join("\n"));
+
+  mkdirSync(OUTPUT_DIR, { recursive: true });
+
   execSync(
-    `ffmpeg -y -f lavfi -i anullsrc=r=32000:cl=mono -i "${audioPath}" `
-      + `-filter_complex "[0:a]atrim=0:${delayMs / 1000}[silence];[silence][1:a]concat=n=2:v=0:a=1[out]" `
-      + `-map "[out]" -b:a 128k -ar 32000 "${paddedPath}"`,
-    { stdio: "pipe" },
+    `ffmpeg -y -f concat -safe 0 -i "${concatListPath}" -b:a 128k -ar 32000 "${OUTPUT_AUDIO}"`,
+    { stdio: "inherit", shell: "/bin/bash" },
   );
 
-  filterInputs.push(`[${i + 1}:a]`);
+  // Write timeline JSON
+  const totalDurationMs = globalOffsetMs;
+  const totalFrames = Math.round((totalDurationMs / 1000) * FPS);
+
+  writeFileSync(OUTPUT_TIMELINE, JSON.stringify({ fps: FPS, totalDurationMs, totalFrames, lines: timeline }, null, 2));
+
+  // Cleanup
+  readdirSync(tmpDir).forEach((f) => unlinkSync(join(tmpDir, f)));
+  execSync(`rmdir "${tmpDir}"`);
+
+  console.log(`\nMerged audio: ${OUTPUT_AUDIO}`);
+  console.log(`Timeline: ${OUTPUT_TIMELINE}`);
+  console.log(`Total duration: ${(totalDurationMs / 1000).toFixed(1)}s (${totalFrames} frames @ ${FPS}fps)`);
+  console.log(`Lines: ${timeline.length}`);
 }
 
-// Build amix command: base + all delayed clips
-const inputArgs = [`-i "${join(tmpDir, "base.mp3")}"`];
-for (let i = 0; i < manifest.scenes.length; i++) {
-  inputArgs.push(`-i "${join(tmpDir, `delayed-${String(i).padStart(2, "0")}.mp3`)}"`);
-}
-
-const mixFilter =
-  `${filterInputs.join("")}amix=inputs=${manifest.scenes.length + 1}:duration=first:dropout_transition=0[out]`;
-
-console.log("Mixing all tracks...");
-
-execSync(
-  `ffmpeg -y ${inputArgs.join(" ")} -filter_complex "${mixFilter}" -map "[out]" -b:a 128k -ar 32000 "${OUTPUT_PATH}"`,
-  { stdio: "inherit", shell: "/bin/bash" },
-);
-
-// Cleanup
-readdirSync(tmpDir).forEach((f) => unlinkSync(join(tmpDir, f)));
-execSync(`rmdir "${tmpDir}"`);
-
-console.log(`\nMerged audio saved: ${OUTPUT_PATH}`);
+main();

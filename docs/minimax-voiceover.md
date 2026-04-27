@@ -1,5 +1,22 @@
 # MiniMax 语音合成配音方案
 
+## 短片工作流
+
+对于短片项目，使用 `scripts/generate-voiceover-config.ts` 从 story.json 自动生成配音配置：
+
+```bash
+# 1. 从故事配置生成 voiceover.json
+npx tsx scripts/generate-voiceover-config.ts src/stories/<storyId>/story.json
+
+# 2. 生成配音音频
+MINIMAX_API_KEY=xxx npx tsx scripts/generate-voiceover.ts src/stories/<storyId>/voiceover.json
+
+# 3. 合并音轨 + 生成 timeline
+npx tsx scripts/merge-voiceover.ts src/stories/<storyId>/story.json
+```
+
+详细说明见 `.claude/skills/create-short-film/SKILL.md`。
+
 ## 概述
 
 使用 MiniMax T2A (Text-to-Audio) API 为 Remotion 视频生成配音，脚本位于 `scripts/generate-voiceover.ts`。
