@@ -1,0 +1,52 @@
+[
+	{
+		"text": "你们人为什么要上班？",
+		"pronounce_text": "你们人为什么要上班？",
+		"time_begin": 0,
+		"time_end": 863.6281179138322,
+		"text_begin": 0,
+		"text_end": 10,
+		"pronounce_text_begin": 0,
+		"pronounce_text_end": 10
+	},
+	{
+		"text": "我不上班也有饭吃。",
+		"pronounce_text": "我不上班也有饭吃。",
+		"time_begin": 2556,
+		"time_end": 3419.6281179138323,
+		"text_begin": 10,
+		"text_end": 19,
+		"pronounce_text_begin": 10,
+		"pronounce_text_end": 19
+	},
+	{
+		"text": "你和我在一起这么久，就是想杀我？",
+		"pronounce_text": "你和我在一起这么久，就是想杀我？",
+		"time_begin": 5112,
+		"time_end": 6707.056689342404,
+		"text_begin": 19,
+		"text_end": 35,
+		"pronounce_text_begin": 19,
+		"pronounce_text_end": 35
+	},
+	{
+		"text": "那你不爱我了吗？",
+		"pronounce_text": "那你不爱我了吗？",
+		"time_begin": 9936,
+		"time_end": 10590.648526077097,
+		"text_begin": 35,
+		"text_end": 43,
+		"pronounce_text_begin": 35,
+		"pronounce_text_end": 43
+	},
+	{
+		"text": "可以。那你养我。",
+		"pronounce_text": "可以。那你养我。",
+		"time_begin": 12780,
+		"time_end": 13573.968253968254,
+		"text_begin": 43,
+		"text_end": 51,
+		"pronounce_text_begin": 43,
+		"pronounce_text_end": 51
+	}
+]

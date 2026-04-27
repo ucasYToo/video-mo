@@ -1,0 +1,35 @@
+{
+  "composition_id": "my-video",
+  "model": "speech-2.8-hd",
+  "stream": false,
+  "voice_setting": {
+    "voice_id": "Chinese (Mandarin)_Lyrical_Voice",
+    "speed": 1,
+    "vol": 1,
+    "pitch": 0
+  },
+  "audio_setting": {
+    "sample_rate": 32000,
+    "bitrate": 128000,
+    "format": "mp3",
+    "channel": 1
+  },
+  "subtitle_enable": false,
+  "scenes": [
+    {
+      "id": "scene-01-intro",
+      "text": "欢迎观看本期视频"
+    },
+    {
+      "id": "scene-02-main",
+      "text": "今天我们来聊一聊人工智能的发展<#0.5#>以及它将如何改变我们的生活",
+      "voice_setting": {
+        "emotion": "happy"
+      }
+    },
+    {
+      "id": "scene-03-outro",
+      "text": "感谢观看，我们下期再见(laughs)"
+    }
+  ]
+}

@@ -1,54 +1,36 @@
 import React, { useMemo } from "react";
-import { AbsoluteFill, Img, interpolate, interpolateColors, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Img, interpolate, interpolateColors, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { Audio } from "@remotion/media";
 import { TypewriterText } from "../../components/TypewriterText/TypewriterText";
+import timelineRaw from "../../../public/voiceover/ShortFilm/timeline.json";
 
-interface Line {
+interface TimelineLine {
   text: string;
+  variant: string;
   startFrame: number;
-  variant?: "normal" | "dialog" | "emphasis";
+  endFrame: number;
+  source: string;
 }
 
-const LINES: Line[] = [
-  { text: "我是一个猎妖人。", startFrame: 60, variant: "normal" },
-  { text: "祖传的手艺。", startFrame: 80, variant: "normal" },
-  { text: "到我这一代快断顿了——", startFrame: 100, variant: "normal" },
-  { text: "妖精们学会了用手机。", startFrame: 125, variant: "normal" },
+interface TimelineData {
+  fps: number;
+  totalDurationMs: number;
+  totalFrames: number;
+  lines: TimelineLine[];
+}
 
-  { text: "我没业务干，每天搓手机。", startFrame: 140, variant: "normal" },
-  { text: "顺道谈了个网恋。", startFrame: 180, variant: "normal" },
+const timeline = timelineRaw as TimelineData;
 
-  { text: "网恋对象叫小鹿，聊了三个月。", startFrame: 200, variant: "normal" },
-  { text: "我喜欢的很。", startFrame: 250, variant: "normal" },
+const TITLE_DURATION = 60;
 
-  { text: "「你们人为什么要上班？」", startFrame: 260, variant: "dialog" },
-  { text: "我说为了吃饭。", startFrame: 310, variant: "normal" },
-  { text: "「我不上班也有饭吃。」", startFrame: 335, variant: "dialog" },
-
-  { text: "直到昨晚，", startFrame: 350, variant: "normal" },
-  { text: "城郊废弃化工厂，", startFrame: 375, variant: "normal" },
-  { text: "追到了那只逃了三天的妖精。", startFrame: 395, variant: "normal" },
-
-  { text: "她蹲在铁架子上，月光一照——", startFrame: 410, variant: "normal" },
-  { text: "和我手机屏保长得一毛一样。", startFrame: 470, variant: "normal" },
-  { text: "是小鹿。", startFrame: 550, variant: "emphasis" },
-
-  { text: "她看了看我的银弩。", startFrame: 620, variant: "normal" },
-  { text: "「你和我在一起这么久，就是想杀我？」", startFrame: 645, variant: "dialog" },
-  { text: "喜欢你是真的，但猎妖是职业操守。", startFrame: 705, variant: "normal" },
-
-  { text: "那你不爱我了吗？", startFrame: 740, variant: "emphasis" },
-
-  { text: "我放下弩。", startFrame: 890, variant: "normal" },
-  { text: "「要不你委屈一下，别当妖了？」", startFrame: 920, variant: "dialog" },
-
-  { text: "「可以。那你养我。」", startFrame: 1010, variant: "dialog" },
-  { text: "我说行，那我也不猎妖了，我去上班给你挣饭钱。", startFrame: 1055, variant: "normal" },
-
-  { text: "后来她告诉我，她早就知道我是猎妖人。", startFrame: 1130, variant: "normal" },
-
-  { text: "那会儿，", startFrame: 1220, variant: "normal" },
-  { text: "我真觉得自己坏透了。", startFrame: 1250, variant: "emphasis" },
-];
+const LINES: Array<{ text: string; startFrame: number; endFrame: number; variant: "normal" | "dialog" | "emphasis"; source: string }> =
+  timeline.lines.map((l) => ({
+    text: l.text,
+    startFrame: l.startFrame + TITLE_DURATION,
+    endFrame: l.endFrame + TITLE_DURATION,
+    variant: l.variant as "normal" | "dialog" | "emphasis",
+    source: l.source,
+  }));
 
 const SPEED = 1;
 const FADE_DURATION = 4;
@@ -70,10 +52,17 @@ const SHAKE_OFFSETS = [
   { x: -1, y: -3 },
 ];
 
-const COLOR_FRAMES = [0, 60, 250, 550, 740, 890, 1130, 1250];
+// Dynamic color frames based on timeline key moments
+const romanceFrame = LINES.find((l) => l.text.includes("小鹿") && l.text.includes("网恋"))!.startFrame;
+const discoveryFrame = LINES.find((l) => l.text === "是小鹿。")!.startFrame;
+const confrontationFrame = LINES.find((l) => l.text.includes("不爱我"))!.startFrame;
+const resolutionFrame = LINES.find((l) => l.text.includes("放下弩"))!.startFrame;
+const epilogueFrame = LINES.find((l) => l.text.includes("后来她告诉我"))!.startFrame;
+const endFrame = LINES[LINES.length - 1].startFrame;
+
+const COLOR_FRAMES = [0, romanceFrame, discoveryFrame, confrontationFrame, resolutionFrame, epilogueFrame, endFrame];
 const COLOR_VALUES = [
   "#0a0a0a",
-  "#0f0f12",
   "#1a1410",
   "#0a1a18",
   "#1a0808",
@@ -101,7 +90,12 @@ const cursorCharMap: Record<string, string> = {
   emphasis: "▊",
 };
 
-const EMOTIONAL_BEATS = [250, 550, 740, 1250];
+const EMOTIONAL_BEATS = [
+  LINES.find((l) => l.text.includes("我喜欢的很"))!.startFrame,
+  LINES.find((l) => l.text === "是小鹿。")!.startFrame,
+  LINES.find((l) => l.text.includes("不爱我"))!.startFrame,
+  LINES[LINES.length - 1].startFrame,
+];
 
 function precomputeHeightContributions(frame: number): number[] {
   const contributions: number[] = [];
@@ -131,7 +125,7 @@ export const ShortFilm: React.FC = () => {
 
   const bgColor = interpolateColors(frame, COLOR_FRAMES, COLOR_VALUES);
 
-  const titleOpacity = interpolate(frame, [0, 10, 50, 60], [0, 1, 1, 0], {
+  const titleOpacity = interpolate(frame, [0, 10, TITLE_DURATION - 15, TITLE_DURATION], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -139,7 +133,6 @@ export const ShortFilm: React.FC = () => {
   const contributions = useMemo(() => precomputeHeightContributions(frame), [frame]);
 
   const totalHeight = contributions.reduce((sum, c) => sum + c, 0);
-  // 锚点从 50% 渐进滑动到 85%：内容少时居中，越多越向下填充
   const progress = Math.min(1, Math.max(0, totalHeight / VIEWPORT_HEIGHT));
   const anchor = 0.5 + 0.35 * progress;
   const blockOffset = VIEWPORT_HEIGHT * anchor - totalHeight;
@@ -159,7 +152,8 @@ export const ShortFilm: React.FC = () => {
     }
   }
 
-  const heartbeatActive = frame >= 200;
+  const heartbeatStart = LINES.find((l) => l.text.includes("网恋"))!.startFrame;
+  const heartbeatActive = frame >= heartbeatStart;
   let heartbeatIntensity = 0;
 
   if (heartbeatActive) {
@@ -208,7 +202,7 @@ export const ShortFilm: React.FC = () => {
       />
 
       {/* 标题画面 */}
-      {frame < 70 && (
+      {frame < TITLE_DURATION && (
         <div
           className="absolute inset-0 flex flex-col items-center justify-center z-30"
           style={{ opacity: titleOpacity }}
@@ -271,6 +265,11 @@ export const ShortFilm: React.FC = () => {
           );
         })}
       </div>
+
+      {/* 配音 */}
+      <Sequence from={TITLE_DURATION}>
+        <Audio src={staticFile("voiceover/ShortFilm/voiceover.mp3")} volume={0.9} />
+      </Sequence>
 
       {/* 底部心跳线 */}
       {heartbeatActive && (

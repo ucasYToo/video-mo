@@ -1,0 +1,259 @@
+{
+  "fps": 30,
+  "totalDurationMs": 43256.2358276644,
+  "totalFrames": 1298,
+  "lines": [
+    {
+      "text": "我是一个猎妖人。",
+      "variant": "normal",
+      "startMs": 0,
+      "endMs": 817.1882086167801,
+      "startFrame": 0,
+      "endFrame": 25,
+      "source": "M"
+    },
+    {
+      "text": "祖传的手艺。",
+      "variant": "normal",
+      "startMs": 1117.1882086167802,
+      "endMs": 1771.836734693878,
+      "startFrame": 34,
+      "endFrame": 53,
+      "source": "M"
+    },
+    {
+      "text": "到我这一代快断顿了——",
+      "variant": "normal",
+      "startMs": 2071.836734693878,
+      "endMs": 3051.5646258503407,
+      "startFrame": 62,
+      "endFrame": 92,
+      "source": "M"
+    },
+    {
+      "text": "妖精们学会了用手机。",
+      "variant": "normal",
+      "startMs": 3351.5646258503407,
+      "endMs": 4261.632653061226,
+      "startFrame": 101,
+      "endFrame": 128,
+      "source": "M"
+    },
+    {
+      "text": "我没业务干，每天搓手机。",
+      "variant": "normal",
+      "startMs": 4561.632653061226,
+      "endMs": 5878.049886621317,
+      "startFrame": 137,
+      "endFrame": 176,
+      "source": "M"
+    },
+    {
+      "text": "顺道谈了个网恋。",
+      "variant": "normal",
+      "startMs": 6178.049886621317,
+      "endMs": 6972.018140589571,
+      "startFrame": 185,
+      "endFrame": 209,
+      "source": "M"
+    },
+    {
+      "text": "网恋对象叫小鹿，聊了三个月。",
+      "variant": "normal",
+      "startMs": 7272.018140589571,
+      "endMs": 8994.784580498868,
+      "startFrame": 218,
+      "endFrame": 270,
+      "source": "M"
+    },
+    {
+      "text": "我喜欢的很。",
+      "variant": "normal",
+      "startMs": 9294.784580498868,
+      "endMs": 9879.773242630388,
+      "startFrame": 279,
+      "endFrame": 296,
+      "source": "M"
+    },
+    {
+      "text": "「你们人为什么要上班？」",
+      "variant": "dialog",
+      "startMs": 10179.773242630388,
+      "endMs": 11043.40136054422,
+      "startFrame": 305,
+      "endFrame": 331,
+      "source": "F"
+    },
+    {
+      "text": "我说为了吃饭。",
+      "variant": "normal",
+      "startMs": 11343.40136054422,
+      "endMs": 11998.049886621317,
+      "startFrame": 340,
+      "endFrame": 360,
+      "source": "M"
+    },
+    {
+      "text": "「我不上班也有饭吃。」",
+      "variant": "dialog",
+      "startMs": 12298.049886621317,
+      "endMs": 13161.678004535148,
+      "startFrame": 369,
+      "endFrame": 395,
+      "source": "F"
+    },
+    {
+      "text": "直到昨晚，",
+      "variant": "normal",
+      "startMs": 13461.678004535148,
+      "endMs": 14023.44671201814,
+      "startFrame": 404,
+      "endFrame": 421,
+      "source": "M"
+    },
+    {
+      "text": "城郊废弃化工厂，",
+      "variant": "normal",
+      "startMs": 14323.44671201814,
+      "endMs": 15303.1746031746,
+      "startFrame": 430,
+      "endFrame": 459,
+      "source": "M"
+    },
+    {
+      "text": "追到了那只逃了三天的妖精。",
+      "variant": "normal",
+      "startMs": 15603.1746031746,
+      "endMs": 16896.371882086165,
+      "startFrame": 468,
+      "endFrame": 507,
+      "source": "M"
+    },
+    {
+      "text": "她蹲在铁架子上，月光一照——",
+      "variant": "normal",
+      "startMs": 17196.371882086165,
+      "endMs": 18988.79818594104,
+      "startFrame": 516,
+      "endFrame": 570,
+      "source": "M"
+    },
+    {
+      "text": "和我手机屏保长得一毛一样。",
+      "variant": "normal",
+      "startMs": 19288.79818594104,
+      "endMs": 20373.01587301587,
+      "startFrame": 579,
+      "endFrame": 611,
+      "source": "M"
+    },
+    {
+      "text": "是小鹿。",
+      "variant": "emphasis",
+      "startMs": 20673.01587301587,
+      "endMs": 21107.074829931968,
+      "startFrame": 620,
+      "endFrame": 633,
+      "source": "M"
+    },
+    {
+      "text": "她看了看我的银弩。",
+      "variant": "normal",
+      "startMs": 23107.074829931968,
+      "endMs": 23854.603174603166,
+      "startFrame": 693,
+      "endFrame": 716,
+      "source": "M"
+    },
+    {
+      "text": "「你和我在一起这么久，就是想杀我？」",
+      "variant": "dialog",
+      "startMs": 24154.603174603166,
+      "endMs": 25749.65986394557,
+      "startFrame": 725,
+      "endFrame": 772,
+      "source": "F"
+    },
+    {
+      "text": "喜欢你是真的，但猎妖是职业操守。",
+      "variant": "normal",
+      "startMs": 26049.65986394557,
+      "endMs": 27888.5260770975,
+      "startFrame": 781,
+      "endFrame": 837,
+      "source": "M"
+    },
+    {
+      "text": "那你不爱我了吗？",
+      "variant": "emphasis",
+      "startMs": 28188.5260770975,
+      "endMs": 28843.174603174597,
+      "startFrame": 846,
+      "endFrame": 865,
+      "source": "F"
+    },
+    {
+      "text": "我放下弩。",
+      "variant": "normal",
+      "startMs": 30843.174603174597,
+      "endMs": 31381.723356009064,
+      "startFrame": 925,
+      "endFrame": 941,
+      "source": "M"
+    },
+    {
+      "text": "「要不你委屈一下，别当妖了？」",
+      "variant": "dialog",
+      "startMs": 31681.723356009064,
+      "endMs": 33114.24036281179,
+      "startFrame": 950,
+      "endFrame": 993,
+      "source": "M"
+    },
+    {
+      "text": "「可以。那你养我。」",
+      "variant": "dialog",
+      "startMs": 33414.24036281179,
+      "endMs": 34208.208616780044,
+      "startFrame": 1002,
+      "endFrame": 1026,
+      "source": "F"
+    },
+    {
+      "text": "我说行，那我也不猎妖了，我去上班给你挣饭钱。",
+      "variant": "normal",
+      "startMs": 34508.208616780044,
+      "endMs": 37345.532879818595,
+      "startFrame": 1035,
+      "endFrame": 1120,
+      "source": "M"
+    },
+    {
+      "text": "后来她告诉我，她早就知道我是猎妖人。",
+      "variant": "normal",
+      "startMs": 37645.532879818595,
+      "endMs": 39461.179138322,
+      "startFrame": 1129,
+      "endFrame": 1184,
+      "source": "M"
+    },
+    {
+      "text": "那会儿，",
+      "variant": "normal",
+      "startMs": 39761.179138322,
+      "endMs": 40195.2380952381,
+      "startFrame": 1193,
+      "endFrame": 1206,
+      "source": "M"
+    },
+    {
+      "text": "我真觉得自己坏透了。",
+      "variant": "emphasis",
+      "startMs": 40495.2380952381,
+      "endMs": 41556.2358276644,
+      "startFrame": 1215,
+      "endFrame": 1247,
+      "source": "M"
+    }
+  ]
+}

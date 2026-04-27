@@ -1,0 +1,20 @@
+{
+  "composition_id": "ShortFilm-v2",
+  "generated_at": "2026-04-27T08:43:03.241Z",
+  "scenes": [
+    {
+      "id": "male",
+      "file": "voiceover/ShortFilm-v2/male.mp3",
+      "durationMs": 54324,
+      "usageCharacters": 593,
+      "subtitleFile": "voiceover/ShortFilm-v2/male.subtitle.json"
+    },
+    {
+      "id": "female",
+      "file": "voiceover/ShortFilm-v2/female.mp3",
+      "durationMs": 13716,
+      "usageCharacters": 123,
+      "subtitleFile": "voiceover/ShortFilm-v2/female.subtitle.json"
+    }
+  ]
+}

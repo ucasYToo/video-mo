@@ -1,0 +1,61 @@
+{
+  "composition_id": "ShortFilm",
+  "model": "speech-2.8-turbo",
+  "stream": false,
+  "voice_setting": {
+    "voice_id": "Chinese (Mandarin)_Unrestrained_Young_Man",
+    "speed": 1.8,
+    "vol": 1,
+    "pitch": 0,
+    "language_boost": "Chinese"
+  },
+  "audio_setting": {
+    "sample_rate": 32000,
+    "bitrate": 128000,
+    "format": "mp3",
+    "channel": 1
+  },
+  "subtitle_enable": true,
+  "scenes": [
+    { "id": "01-我是一个猎妖人", "text": "我是一个猎妖人。" },
+    { "id": "02-祖传的手艺", "text": "祖传的手艺。" },
+    { "id": "03-到我这一代快断顿了", "text": "到我这一代快断顿了——" },
+    { "id": "04-妖精们学会了用手机", "text": "妖精们学会了用手机。" },
+    { "id": "05-我没业务干", "text": "我没业务干，每天搓手机。" },
+    { "id": "06-顺道谈了个网恋", "text": "顺道谈了个网恋。" },
+    { "id": "07-网恋对象叫小鹿", "text": "网恋对象叫小鹿，聊了三个月。" },
+    { "id": "08-我喜欢的很", "text": "我喜欢的很。" },
+    { "id": "09-你们人为什么要上班", "text": "你们人为什么要上班？",
+      "voice_setting": { "voice_id": "female-shaonv" }
+    },
+    { "id": "10-我说为了吃饭", "text": "我说为了吃饭。" },
+    { "id": "11-我不上班也有饭吃", "text": "我不上班也有饭吃。",
+      "voice_setting": { "voice_id": "female-shaonv" }
+    },
+    { "id": "12-直到昨晚", "text": "直到昨晚，" },
+    { "id": "13-城郊废弃化工厂", "text": "城郊废弃化工厂，" },
+    { "id": "14-追到了那只逃了三天的妖精", "text": "追到了那只逃了三天的妖精。" },
+    { "id": "15-她蹲在铁架子上", "text": "她蹲在铁架子上，月光一照——" },
+    { "id": "16-和我手机屏保长得一毛一样", "text": "和我手机屏保长得一毛一样。" },
+    { "id": "17-是小鹿", "text": "是小鹿。" },
+    { "id": "18-她看了看我的银弩", "text": "她看了看我的银弩。" },
+    { "id": "19-你和我在一起就是想杀我", "text": "你和我在一起这么久，就是想杀我？",
+      "voice_setting": { "voice_id": "female-shaonv" }
+    },
+    { "id": "20-喜欢你是真的", "text": "喜欢你是真的，但猎妖是职业操守。" },
+    { "id": "21-那你不爱我了吗", "text": "那你不爱我了吗？",
+      "voice_setting": { "voice_id": "female-shaonv", "emotion": "sad" }
+    },
+    { "id": "22-我放下弩", "text": "我放下弩。" },
+    { "id": "23-要不你委屈一下别当妖了", "text": "要不你委屈一下，别当妖了？" },
+    { "id": "24-可以那你养我", "text": "可以。那你养我。",
+      "voice_setting": { "voice_id": "female-shaonv" }
+    },
+    { "id": "25-我说行我去上班", "text": "我说行，那我也不猎妖了，我去上班给你挣饭钱。" },
+    { "id": "26-后来她告诉我", "text": "后来她告诉我，她早就知道我是猎妖人。" },
+    { "id": "27-那会儿", "text": "那会儿，" },
+    { "id": "28-我真觉得自己坏透了", "text": "我真觉得自己坏透了。",
+      "voice_setting": { "emotion": "sad" }
+    }
+  ]
+}
